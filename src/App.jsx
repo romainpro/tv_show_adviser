@@ -3,8 +3,9 @@ import "./global.css";
 import { TVShowAPI } from "./api/tv_show";
 import { useEffect, useState } from "react";
 import { BACKDROP_BASE_URL } from "./config";
+import { TVShowDetail } from "./components/TVShowDetail/TVShowDetail";
 
-TVShowAPI.fetchpopular()
+
 export function App(){
     const [currentTVShow, setCurrentTVShow] =useState();
 
@@ -35,7 +36,9 @@ export function App(){
                 </div>
             </div>
         </div>
-        <div className={s.show_tv_detail}>detail</div>
+        <div className={s.show_tv_detail}>
+           { currentTVShow && <TVShowDetail tvShow={currentTVShow}/>}
+                </div>
         <div className={s.recommentation}>recommentation</div>
     </div>
     )
