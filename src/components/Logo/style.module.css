@@ -13,4 +13,5 @@
 }
 .subtitle{
     margin-left: 7px;
+    white-space: nowrap;
 }
