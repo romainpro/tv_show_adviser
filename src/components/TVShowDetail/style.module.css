@@ -2,6 +2,11 @@
     font-weight: 400;
     font-size: 35px;
 }
+.date{
+    margin: 25px 0px 25px 0px;
+    font-size: 20px;
+    font-weight: 300;
+}
 
 .rating_container{
     display: flex;

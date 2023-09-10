@@ -6,15 +6,16 @@ import { BACKDROP_BASE_URL } from "./config";
 import { TVShowDetail } from "./components/TVShowDetail/TVShowDetail";
 import { Logo } from "./components/Logo/Logo";
 import logo from "./assets/images/logo.png";
-import { TVShowListItem } from "./components/TVShowListItem/TVShowListItem";
 import { TVShowList } from "./components/TVShowList/TVShowList";
 import { SearchBar } from "./components/SearchBar/SeachBar";
 
 export function App() {
+
   const [currentTVShow, setCurrentTVShow] = useState();
   const [recommendationList, setRecommendationList] = useState([]);
+
   async function fetchpopulars() {
-    const popular = await TVShowAPI.fetchpopular();
+    const popular = await TVShowAPI.fetchpopulars();
     if (popular.length > 0) {
       setCurrentTVShow(popular[0]);
     }

@@ -3,7 +3,7 @@ import { BASE_URl,API_KEY_PARAM, } from "../config";
 
 
 export class TVShowAPI{
-   static async fetchpopular(){
+   static async fetchpopulars(){
         const response = await axios.get(`${BASE_URl}tv/popular${API_KEY_PARAM}`);
             return response.data.results;
     }
