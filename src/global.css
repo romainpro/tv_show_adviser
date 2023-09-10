@@ -7,7 +7,7 @@ body{
 }
 
 ::-webkit-scrollbar-thumb:horizontal{
-    background-color: rgab(0,0,0,0.61);
+    background-color: rgba(0,0,0,0.61);
     border-radius: 10px;
 
 }
