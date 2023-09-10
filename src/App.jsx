@@ -7,27 +7,39 @@ import { TVShowDetail } from "./components/TVShowDetail/TVShowDetail";
 import {Logo} from "./components/Logo/Logo";
 import logo from "./assets/images/logo.png";
 import { TVShowListItem } from "./components/TVShowListItem/TVShowListItem";
+import { TVShowList } from "./components/TVShowList/TVShowList";
 
-function setTVSowClik(tvShow){
-    alert(JSON.stringify((tvShow)))
-
-}
 
 export function App(){
     const [currentTVShow, setCurrentTVShow] =useState();
-
+    const [recommendationList, setRecommendationList] =useState([]);
     async function fetchpopulars(){
         const popular = await TVShowAPI.fetchpopular();
         if(popular.length>0){
             setCurrentTVShow(popular[0]);
         }
     }
+    async function fetchReconnendations(tvShowid){
+        const recommendations = await TVShowAPI.fetchReconnendations(tvShowid);
+        if(recommendations.length>0){
+            setRecommendationList(recommendations.slice(0,10));
+        }
+    }
+
+    function setCurrentTVShowFromRecommentation(tvShow){
+        alert(JSON.stringify(tvShow))
+    }
     useEffect(()=>{
         fetchpopulars();
     },[]);
 
-    console.log("***",currentTVShow)
+    useEffect(()=>{
+        if(currentTVShow){
+            fetchReconnendations(currentTVShow.id)
+        }
+    },[currentTVShow]);
 
+console.log('***',recommendationList)
     return (
     <div className={s.main_container}
     style={{background: currentTVShow ? `linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url("${BACKDROP_BASE_URL}${currentTVShow.backdrop_path}") no-repeat center / cover`
@@ -48,7 +60,7 @@ export function App(){
            { currentTVShow && <TVShowDetail tvShow={currentTVShow}/>}
                 </div>
         <div className={s.recommentation}>
-        {currentTVShow && <TVShowListItem onClick={setTVSowClik} tvShow={currentTVShow}/>}
+            {recommendationList &&recommendationList.length > 0 && <TVShowList  TVShowList={recommendationList}/>}
         </div>
     </div>
     )
