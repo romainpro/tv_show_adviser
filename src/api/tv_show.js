@@ -14,4 +14,10 @@ export class TVShowAPI{
             `${BASE_URl}tv/${tvShowid}/recommendations${API_KEY_PARAM}`);
             return response.data.results;
     }
+
+   static async fetchByTitle(title){
+        const response = await axios.get(
+            `${BASE_URl}search/tv${API_KEY_PARAM}&query=${title}`);
+            return response.data.results;
+    }
 }
