@@ -10,20 +10,38 @@ import { TVShowList } from "./components/TVShowList/TVShowList";
 import { SearchBar } from "./components/SearchBar/SeachBar";
 
 export function App() {
-
   const [currentTVShow, setCurrentTVShow] = useState();
   const [recommendationList, setRecommendationList] = useState([]);
 
   async function fetchpopulars() {
-    const popular = await TVShowAPI.fetchpopulars();
-    if (popular.length > 0) {
-      setCurrentTVShow(popular[0]);
+    try {
+      const popular = await TVShowAPI.fetchpopulars();
+      if (popular.length > 0) {
+        setCurrentTVShow(popular[0]);
+      }
+    } catch (erreur) {
+      alert(" ERREUR dans la recherche de séries populaires");
     }
   }
   async function fetchReconnendations(tvShowid) {
-    const recommendations = await TVShowAPI.fetchReconnendations(tvShowid);
-    if (recommendations.length > 0) {
-      setRecommendationList(recommendations.slice(0, 10));
+    try {
+      const recommendations = await TVShowAPI.fetchReconnendations(tvShowid);
+      if (recommendations.length > 0) {
+        setRecommendationList(recommendations.slice(0, 10));
+      }
+    } catch (erreur) {
+      alert("ERREUR dans la recherche de recommendation");
+    }
+  }
+
+  async function searchTVShow(TVShowName) {
+    try {
+      const seachResponse = await TVShowAPI.fetchByTitle(TVShowName);
+      if (seachResponse.length > 0) {
+        setCurrentTVShow(seachResponse[0]);
+      }
+    } catch (erreur) {
+      alert("ERREUR dans la recherche de main show TV");
     }
   }
 
@@ -39,13 +57,6 @@ export function App() {
       fetchReconnendations(currentTVShow.id);
     }
   }, [currentTVShow]);
-
-async function searchTVShow(TVShowName){
-  const seachResponse = await TVShowAPI.fetchByTitle(TVShowName);
-  if(seachResponse.length > 0){
-  setCurrentTVShow(seachResponse[0]);
-  }
-}
 
   return (
     <div
